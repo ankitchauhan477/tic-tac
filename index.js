@@ -26,6 +26,7 @@ var chance = 0;
 var data = [];
 var user = [];
 var comp = [];
+var flag = false;
 
 function initializeGrid() {
     for (let colIdx = 0;colIdx < GRID_LENGTH; colIdx++) {
@@ -98,7 +99,7 @@ function onBoxClick() {
         });
     }
     else{
-        if(data.length >= 9){
+        if(data.length >= 9 || flag == true){
             //alert('Game over!');
             swal({
               type: 'error',
@@ -110,14 +111,7 @@ function onBoxClick() {
                 data.push(rowIdx+'-'+colIdx);
                 user.push(rowIdx+'-'+colIdx);
 
-                let newValue = 1;
-                grid[colIdx][rowIdx] = newValue;
-                renderMainGrid();
-                addClickHandlers();
-
-
-                let u1, u2=0;
-                let c1, c2=0;
+                let u1=0, u2=0, u3=0, u4=0, u5=0, u6=0, u7=0, u8=0, c1=0, c2=0, c3=0, c4=0, c5=0, c6=0, c7=0, c8=0;
 
                 for(let row=0; row < GRID_LENGTH ; row++ ) {
                     
@@ -132,6 +126,7 @@ function onBoxClick() {
                             else if(comp.includes(row+'-'+col) == true){
                                 c1++;
                             }
+                            
                         }
                         //opp diagonal
                         if(row+col==GRID_LENGTH-1 ){
@@ -145,25 +140,101 @@ function onBoxClick() {
                         }
 
                         // horizontal
-                        //if()
+                        if( row == 0 && (col == 0 || col == 1 || col == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u3++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c3++;
+                            }   
+                            
+                        }
+                        // horizontal
+                        if( row == 1 && (col == 0 || col == 1 || col == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u4++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c4++;
+                            }   
+                            
+                        }
+                        // horizontal
+                        if( row == 2 && (col == 0 || col == 1 || col == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u5++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c5++;
+                            }   
+                            
+                        }
+
+                        // horizontal
+                        if( col == 0 && (row == 0 || row == 1 || row == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u6++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c6++;
+                            }   
+                            
+                        }
+                        // horizontal
+                        if( col == 1 && (row == 0 || row == 1 || row == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u7++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c7++;
+                            }   
+                            
+                        }
+                        // horizontal
+                        if( col == 2 && (row == 0 || row == 1 || row == 2) ){
+
+                            if(user.includes(row+'-'+col) == true){
+                                u8++;
+                            }
+                            else if(comp.includes(row+'-'+col) == true){
+                                c8++;
+                            }   
+                            
+                        }
 
                     }
                 }
 
-                if(u1==3 || u2==3 ){
+                if(u1==3 || u2==3 || u3==3 || u4==3 || u5==3 || u6==3 || u7==3 || u8==3 ){
                     swal({
                       type: 'success',
                       title: 'Wow',
                       text: 'You win!',
                     });
+
+                    flag = true;
                 }
-                if(c1==3 || c2==3 ){
+                if(c1==3 || c2==3 || c3==3 || c4==3 || c5==3 || c6==3 || c7==3 || c8==3 ){
                     swal({
                       type: 'success',
                       title: 'Oops..',
                       text: 'Computer wins!',
                     });
+
+                    flag = true;
                 }
+
+                
+                    let newValue = 1;
+                    grid[colIdx][rowIdx] = newValue;
+                    renderMainGrid();
+                    addClickHandlers();
+                
         }
     }
 }
